@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Harmolipi\ActiveCampaign;
 
@@ -21,14 +22,14 @@ class ActiveCampaignAPI
    * @param string $api_key The API key.
    * @param string $connection_id The connection ID to use for the API requests.
    */
-  public function __construct($api_url, $api_key, $connection_id = null)
+  public function __construct(string $api_url, string $api_key, string $connection_id = null)
   {
     $this->api_base = $api_url;
     $this->api_key = $api_key;
     $this->connection_id = $connection_id ?? null;
   }
 
-  public function setConnectionId($connection_id)
+  public function setConnectionId(string $connection_id)
   {
     $this->connection_id = $connection_id;
   }
@@ -40,9 +41,9 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to include in the request.
    * @param string $method The HTTP method to use (default: GET).
    * @param array $data The data to send in the request body (for PUT and POST requests).
-   * @return mixed The API response.
+   * @return array The API response.
    */
-  private function makeRequest($endpoint, $params = array(), $method = 'GET', $data = array())
+  private function makeRequest(string $endpoint, array $params = array(), string $method = 'GET', array $data = array()): array
   {
     $params['api_key'] = $this->api_key;
 
@@ -99,7 +100,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of contacts.
    * @return array An array of contacts.
    */
-  public function getContacts($params = array())
+  public function getContacts(array $params = array()): array
   {
     $endpoint =  '/api/3/contacts';
 
@@ -114,7 +115,7 @@ class ActiveCampaignAPI
    * @param int $id The ID of the contact to retrieve.
    * @return array The contact data.
    */
-  public function getContact($id)
+  public function getContact(int $id): array
   {
     $endpoint =  '/api/3/contacts/' . $id;
 
@@ -148,7 +149,7 @@ class ActiveCampaignAPI
    * @param array $data The data to update the contact with.
    * @return array The updated contact data.
    */
-  public function updateContact($id, $data)
+  public function updateContact(int $id, array $data): array
   {
     $endpoint =  '/api/3/contacts/' . $id;
 
@@ -165,7 +166,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of accounts.
    * @return array An array of accounts.
    */
-  public function getAccounts($params = array())
+  public function getAccounts(array $params = array()): array
   {
     $endpoint =  '/api/3/accounts';
 
@@ -180,7 +181,7 @@ class ActiveCampaignAPI
    * @param int $id The ID of the account to retrieve.
    * @return array The account data.
    */
-  public function getAccount($id)
+  public function getAccount(int $id): array
   {
     $endpoint =  '/api/3/accounts/' . $id;
 
@@ -195,7 +196,7 @@ class ActiveCampaignAPI
    * @param array $data The data to create the account with.
    * @return array The created account data.
    */
-  public function createAccount($data)
+  public function createAccount(array $data): array
   {
     $endpoint =  '/api/3/accounts';
 
@@ -211,7 +212,7 @@ class ActiveCampaignAPI
    * @param array $data The data to update the account with.
    * @return array The updated account data.
    */
-  public function updateAccount($id, $data)
+  public function updateAccount(int $id, array $data): array
   {
     $endpoint =  '/api/3/accounts/' . $id;
 
@@ -226,7 +227,7 @@ class ActiveCampaignAPI
    * @param array $data The data to create the association with.
    * @return array The created association data.
    */
-  public function createContactAccountAssociation($data)
+  public function createContactAccountAssociation(array $data): array
   {
     $endpoint =  '/api/3/accountContacts';
 
@@ -241,7 +242,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to limit the list of account custom fields.
    * @return array An array of account custom fields.
    */
-  public function getAccountCustomFields($params = array())
+  public function getAccountCustomFields(array $params = array()): array
   {
     $endpoint =  '/api/3/accountCustomFieldMeta';
 
@@ -258,7 +259,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of custom fields.
    * @return array An array of custom fields.
    */
-  public function getCustomFields($params = array())
+  public function getCustomFields(array $params = array()): array
   {
     $endpoint =  '/api/3/fields';
 
@@ -275,7 +276,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of tags.
    * @return array An array of tags.
    */
-  public function getTags($params = array())
+  public function getTags(array $params = array()): array
   {
     $endpoint =  '/api/3/tags';
 
@@ -293,7 +294,7 @@ class ActiveCampaignAPI
    * @param int $tag_id The ID of the tag to add to the contact.
    * @return array The updated contact data.
    */
-  public function addTagToContact(int $contact_id, int $tag_id)
+  public function addTagToContact(int $contact_id, int $tag_id): array
   {
     $endpoint =  '/api/3/contactTags/';
 
@@ -318,7 +319,7 @@ class ActiveCampaignAPI
    * @return array An array of deals.
    */
 
-  public function getDeals($params = array())
+  public function getDeals(array $params = array()): array
   {
     $endpoint =  '/api/3/deals';
 
@@ -333,7 +334,7 @@ class ActiveCampaignAPI
    * @param int $id The ID of the deal to retrieve.
    * @return array The deal data.
    */
-  public function getDeal($id)
+  public function getDeal(int $id): array
   {
     $endpoint =  '/api/3/deals/' . $id;
 
@@ -349,7 +350,7 @@ class ActiveCampaignAPI
    * @param int $id The ID of the deal to retrieve the custom fields for.
    * @return array The deal's custom fields.
    */
-  public function getDealCustomFieldData($id)
+  public function getDealCustomFieldData(int $id): array
   {
     $endpoint =  '/api/3/deals/' . $id . '/dealCustomFieldData';
 
@@ -364,7 +365,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of custom fields.
    * @return array An array of custom fields.
    */
-  public function getDealCustomFields($params = array())
+  public function getDealCustomFields(array $params = array()): array
   {
     $endpoint =  '/api/3/dealCustomFieldMeta';
 
@@ -379,7 +380,7 @@ class ActiveCampaignAPI
    * @param array $data The data to create the deal with.
    * @return array The created deal data.
    */
-  public function createDeal($data)
+  public function createDeal(array: $data): array
   {
     $endpoint =  '/api/3/deals';
 
@@ -396,7 +397,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of connections.
    * @return array An array of connections.
    */
-  public function getConnections(array $params = array())
+  public function getConnections(array $params = array()): array
   {
     $endpoint =  '/api/3/connections';
 
@@ -411,7 +412,7 @@ class ActiveCampaignAPI
    * @param int $id The ID of the connection to retrieve.
    * @return array The connection data.
    */
-  public function getConnection(int $id)
+  public function getConnection(int $id): array
   {
     $endpoint =  '/api/3/connections/' . $id;
 
@@ -426,7 +427,7 @@ class ActiveCampaignAPI
    * @param array $params An array of parameters to create the new connection.
    * @return array The created connection.
    */
-  public function createConnection(array $data)
+  public function createConnection(array $data): array
   {
     $endpoint = '/api/3/connections';
 
@@ -442,7 +443,7 @@ class ActiveCampaignAPI
    * @param array $data The data to update the connection with.
    * @return array The updated connection data.
    */
-  public function updateConnection(int $id, array $data)
+  public function updateConnection(int $id, array $data): array
   {
     $endpoint =  '/api/3/connections/' . $id;
 
@@ -458,7 +459,7 @@ class ActiveCampaignAPI
    * @param array $params Optional parameters to filter and sort the list of customers.
    * @return array An array of customers.
    */
-  public function getConnectionCustomers(int $id = null, array $params = array())
+  public function getConnectionCustomers(int $id = null, array $params = array()): array
   {
     if (is_null($id)) {
       $id = $this->connection_id;
@@ -473,7 +474,7 @@ class ActiveCampaignAPI
 
   /* ======================== E-commerce Customers ======================== */
 
-  public function getCustomers($params = array())
+  public function getCustomers(array $params = array()): array
   {
     $endpoint =  '/api/3/ecomCustomers';
 
@@ -482,7 +483,7 @@ class ActiveCampaignAPI
     return $response['ecomCustomers'];
   }
 
-  public function createCustomer($data)
+  public function createCustomer(array $data): array
   {
     $endpoint = '/api/3/ecomCustomers';
 
@@ -493,7 +494,7 @@ class ActiveCampaignAPI
 
   /* ======================== E-commerce Orders ======================== */
 
-  public function getOrders($params = array())
+  public function getOrders(array $params = array()): array
   {
     $endpoint =  '/api/3/ecomOrders';
 
@@ -502,7 +503,7 @@ class ActiveCampaignAPI
     return $response['ecomOrders'];
   }
 
-  public function createOrder($data)
+  public function createOrder(array $data): array
   {
     $endpoint = '/api/3/ecomOrders';
 
