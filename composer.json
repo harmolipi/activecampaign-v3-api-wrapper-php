@@ -1,0 +1,17 @@
+{
+  "name": "harmolipi/activecampaign-v3-api-wrapper-php",
+  "description": "This is a PHP wrapper designed to consume the V3 ActiveCampaign API",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Harmolipi\\ActiveCampaign\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Niko",
+      "email": "nikob381@gmail.com"
+    }
+  ],
+  "require": {}
+}
