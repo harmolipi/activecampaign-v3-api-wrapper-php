@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Harmolipi\ActiveCampaign;
@@ -380,7 +381,7 @@ class ActiveCampaignAPI
    * @param array $data The data to create the deal with.
    * @return array The created deal data.
    */
-  public function createDeal(array: $data): array
+  public function createDeal(array $data): array
   {
     $endpoint =  '/api/3/deals';
 
